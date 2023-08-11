@@ -127,6 +127,20 @@ abstract class ZipArchiveAdapterTestCase extends FilesystemAdapterTestCase
     /**
      * @test
      */
+    public function test_directory_existence(): void
+    {
+        $this->givenWeHaveAnExistingFile('a.txt');
+        $this->givenWeHaveAnExistingFile('one/a.txt');
+
+        $this->assertTrue($this->adapter()->directoryExists('one'));
+        $this->assertFalse($this->adapter()->directoryExists('two'));
+        $this->assertTrue($this->adapter()->directoryExists('/'));
+        $this->assertTrue($this->adapter()->directoryExists(''));
+    }
+
+    /**
+     * @test
+     */
     public function deleting_a_directory(): void
     {
         $this->givenWeHaveAnExistingFile('a.txt');
